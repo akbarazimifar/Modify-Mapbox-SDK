@@ -8,7 +8,7 @@ import com.mapbox.services.android.navigation.testapp.example.utils.DelegatesExt
 import timber.log.Timber
 
 private const val DEFAULT_MAPBOX_ACCESS_TOKEN = "YOUR_DEFAULT_MAPBOX_TOKEN"
-//private const val DEFAULT_MAPBOX_ACCESS_TOKEN = "sk.eyJ1IjoibWVnYWFwcHN3b3JsZCIsImEiOiJjbDc2NmFvOTUwMnByM3ZvMXF5bWEwYTZzIn0.T7r3EwHyjbcfXw-5YjrZ-Q"
+
 
 class NavigationApplication : MultiDexApplication() {
 
