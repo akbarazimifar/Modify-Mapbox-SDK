@@ -1,0 +1,98 @@
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
+
+buildscript {
+  apply from: "${rootDir}/gradle/dependencies.gradle"
+
+  repositories {
+    google()
+    mavenCentral()
+    jcenter()
+    maven { url 'https://plugins.gradle.org/m2' }
+    maven { url 'https://maven.fabric.io/public' }
+  }
+  dependencies {
+    classpath pluginDependencies.gradle
+    classpath pluginDependencies.kotlin
+    classpath pluginDependencies.coveralls
+    classpath pluginDependencies.errorprone
+    classpath pluginDependencies.dependencyUpdates
+    classpath pluginDependencies.jacoco
+    classpath pluginDependencies.playPublisher
+    classpath pluginDependencies.googleServices
+//    classpath pluginDependencies.crashlytics
+    classpath pluginDependencies.license
+  }
+}
+
+task testReport(type: TestReport, group: 'Build') {
+  description = 'Generates an aggregate test report'
+  destinationDir = file("${buildDir}/reports/allTests")
+}
+
+allprojects {
+  repositories {
+   // google()
+   // mavenCentral()
+   // jcenter()
+//    maven { url 'https://plugins.gradle.org/m2' }
+   // maven { url 'https://mapbox.bintray.com/mapbox' }
+//    maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+
+    google()
+    mavenCentral()
+    jcenter() // Warning: this repository is going to shut down soon
+    maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication {
+        basic(BasicAuthentication)
+      }
+      credentials {
+        // Do not change the username below.
+        // This should always be `mapbox` (not your username).
+        username = "mapbox"
+        //Test token
+        password ="sk.eyJ1IjoibWVnYWFwcHN3b3JsZCIsImEiOiJjbDc2NmFvOTUwMnByM3ZvMXF5bWEwYTZzIn0.T7r3EwHyjbcfXw-5YjrZ-Q"
+      }
+    }
+  }
+
+  group = GROUP
+  version = VERSION_NAME
+}
+
+subprojects {
+  apply plugin: 'idea'
+//  apply plugin: 'net.ltgt.errorprone'
+  apply from: "${rootDir}/gradle/dependencies.gradle"
+
+  dependencies {
+//    errorprone dependenciesList.errorprone
+  }
+}
+
+//dependencyResolutionManagement {
+//  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//  repositories {
+//    google()
+//    mavenCentral()
+//    jcenter() // Warning: this repository is going to shut down soon
+//    maven {
+//      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+//      authentication {
+//        basic(BasicAuthentication)
+//      }
+//      credentials {
+//        // Do not change the username below.
+//        // This should always be `mapbox` (not your username).
+//        username = "mapbox"
+//        //Test token
+//        password ="sk.eyJ1IjoibWVnYWFwcHN3b3JsZCIsImEiOiJjbDc2NmFvOTUwMnByM3ZvMXF5bWEwYTZzIn0.T7r3EwHyjbcfXw-5YjrZ-Q"
+//      }
+//    }
+//  }
+//}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
